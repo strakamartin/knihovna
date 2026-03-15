@@ -6,59 +6,133 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>450</height>
+    <width>900</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Knižní evidence</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    
-    <item>
-     <widget class="QLabel" name="labelHledani">
-      <property name="text">
-       <string>Vyhledat knihu (podle názvu):</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="listaHledani">
-      <property name="placeholderText">
-       <string>Zadejte název...</string>
-      </property>
-     </widget>
-    </item>
+   <layout class="QVBoxLayout" name="verticalLayoutMain">
 
     <item>
-     <widget class="QTableView" name="tabulkaKnih">
-      <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-     </widget>
-    </item>
+     <layout class="QHBoxLayout" name="horizontalLayoutTop">
 
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+      <!-- Levý panel: seznam autorů -->
       <item>
-       <widget class="QPushButton" name="tlacitkoPridat">
-        <property name="text">
-         <string>Přidat knihu</string>
+       <widget class="QGroupBox" name="groupBoxAutori">
+        <property name="title">
+         <string>Autoři</string>
         </property>
+        <layout class="QVBoxLayout" name="verticalLayoutAutori">
+         <item>
+          <widget class="QListWidget" name="listAutoru">
+           <property name="minimumWidth">
+            <number>200</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayoutTlacitkaAutoru">
+           <item>
+            <widget class="QPushButton" name="tlacitkoPridatAutora">
+             <property name="text">
+              <string>Přidat autora</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="tlacitkoSmazatAutora">
+             <property name="text">
+              <string>Smazat autora</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
+
+      <!-- Pravý panel: knihy -->
       <item>
-       <widget class="QPushButton" name="tlacitkoSmazat">
-        <property name="text">
-         <string>Smazat vybranou</string>
+       <widget class="QGroupBox" name="groupBoxKnihy">
+        <property name="title">
+         <string>Knihy</string>
         </property>
+        <layout class="QVBoxLayout" name="verticalLayoutKnihy">
+         <item>
+          <widget class="QLabel" name="labelHledani">
+           <property name="text">
+            <string>Vyhledat knihu (podle názvu):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="listaHledani">
+           <property name="placeholderText">
+            <string>Zadejte název...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableView" name="tabulkaKnih">
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayoutTlacitkaKnih">
+           <item>
+            <widget class="QPushButton" name="tlacitkoPridat">
+             <property name="text">
+              <string>Přidat knihu</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="tlacitkoSmazat">
+             <property name="text">
+              <string>Smazat vybranou</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
+
      </layout>
+    </item>
+
+    <!-- Spodní panel: editace autorů -->
+    <item>
+     <widget class="QGroupBox" name="groupBoxEditaceAutoru">
+      <property name="title">
+       <string>Editace autorů</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayoutEditaceAutoru">
+       <item>
+        <widget class="QTableView" name="tabulkaAutoru">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="maximumHeight">
+          <number>200</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </item>
 
    </layout>
