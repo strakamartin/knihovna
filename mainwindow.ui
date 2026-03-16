@@ -16,39 +16,6 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayoutMain">
 
-    <!-- Řádek výběru tabulky -->
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayoutVyberTabulky">
-      <item>
-       <widget class="QLabel" name="labelVyberTabulky">
-        <property name="text">
-         <string>Vyber tabulku:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="comboTabulky">
-        <property name="minimumWidth">
-         <number>160</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="spacerVyber">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-
     <!-- Hlavní obsah: levý seznam autorů + pravý panel dat -->
     <item>
      <layout class="QHBoxLayout" name="horizontalLayoutObsah">
@@ -70,11 +37,58 @@
        </widget>
       </item>
 
-      <!-- Pravý panel: filtr + tabulka + tlačítka -->
+      <!-- Pravý panel: nástrojový řádek + filtr + tabulka -->
       <item>
        <layout class="QVBoxLayout" name="verticalLayoutPravy">
 
-        <!-- Řádek filtru -->
+        <!-- Řádek 1: výběr tabulky + tlačítka správy řádků -->
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayoutNastroje">
+          <item>
+           <widget class="QLabel" name="labelVyberTabulky">
+            <property name="text">
+             <string>Vyber tabulku:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboTabulky">
+            <property name="minimumWidth">
+             <number>140</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacerNastroje">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="tlacitkoPridat">
+            <property name="text">
+             <string>Přidat řádek</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="tlacitkoSmazat">
+            <property name="text">
+             <string>Smazat řádek</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+
+        <!-- Řádek 2: filtr -->
         <item>
          <layout class="QHBoxLayout" name="horizontalLayoutFiltr">
           <item>
@@ -118,39 +132,6 @@
            <enum>QAbstractItemView::SelectRows</enum>
           </property>
          </widget>
-        </item>
-
-        <!-- Tlačítka pro správu řádků (součást pravého panelu) -->
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayoutTlacitka">
-          <item>
-           <widget class="QPushButton" name="tlacitkoPridat">
-            <property name="text">
-             <string>Přidat řádek</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="tlacitkoSmazat">
-            <property name="text">
-             <string>Smazat řádek</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="spacerTlacitka">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
         </item>
 
        </layout>

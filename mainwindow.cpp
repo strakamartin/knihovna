@@ -196,6 +196,11 @@ void MainWindow::aktualizujFiltr() {
 
     mModelAktivni->setFilter(podminkySql.join(" AND "));
     mModelAktivni->select();
+
+    // QSqlTableModel::select() emits modelReset which resets the header view's
+    // section visibility back to the default (all visible). Re-hide the ID
+    // column so it stays hidden after every data refresh.
+    ui->tabulkaHlavni->hideColumn(0);
 }
 
 // ---------------------------------------------------------------------------
@@ -210,10 +215,10 @@ void MainWindow::onVyberTabulky(int /*index*/) {
     mModelAktivni = new QSqlTableModel(this, mMojeDatabaze);
     mModelAktivni->setTable(tabulka);
     mModelAktivni->setEditStrategy(QSqlTableModel::OnFieldChange);
-    mModelAktivni->select();
 
+    // Connect the view BEFORE calling select() so the initial modelReset is
+    // handled by the view with the correct model already in place.
     ui->tabulkaHlavni->setModel(mModelAktivni);
-    ui->tabulkaHlavni->hideColumn(0);  // always hide the internal ID
 
     // When editing the author table inline, refresh the author list
     if (tabulka == "autor") {
@@ -226,6 +231,11 @@ void MainWindow::onVyberTabulky(int /*index*/) {
     ui->listaHledani->clear();
     ui->listAutoru->clearSelection();
     nactiSloupceProTabulku(tabulka);
+
+    // Load data with no filter; hide the internal ID column.
+    // aktualizujFiltr() builds an empty filter (= no restriction) and calls
+    // select(), then re-hides column 0 so the header reset does not expose it.
+    aktualizujFiltr();
 }
 
 void MainWindow::onPridejRadek() {
@@ -251,6 +261,7 @@ void MainWindow::onPridejRadek() {
     }
 
     mModelAktivni->submitAll();
+    aktualizujFiltr();  // re-applies current filter and re-hides column 0
 
     if (tabulka == "autor") {
         nactiSeznamAutoru();
@@ -268,7 +279,7 @@ void MainWindow::onSmazVybranyRadek() {
 
     mModelAktivni->removeRow(index.row());
     mModelAktivni->submitAll();
-    mModelAktivni->select();
+    aktualizujFiltr();  // re-applies current filter and re-hides column 0
 
     if (ui->comboTabulky->currentText() == "autor") {
         nactiSeznamAutoru();
