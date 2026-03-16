@@ -22,15 +22,16 @@ void MainWindow::inicializujDb() {
     mMojeDatabaze.setDatabaseName("knihovna.sqlite");
 
     if (!mMojeDatabaze.open()) {
-        QMessageBox::critical(this, "Chyba databáze", 
-                             "Nepodařilo se otevřít databázi: " + mMojeDatabaze.lastError().text());
+        QMessageBox::critical(this, "Chyba databáze",
+                             "Nepodařilo se otevřít databázi: " +
+                                  mMojeDatabaze.lastError().text());
         return;
     }
 
     QSqlQuery dotaz;
     // Vytvoření tabulky s českými názvy sloupců
     dotaz.exec("CREATE TABLE IF NOT EXISTS knihy ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "id INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, "
                "nazev TEXT, "
                "autor TEXT, "
                "rok_vydani INTEGER)");
@@ -42,7 +43,7 @@ void MainWindow::inicializujDb() {
 
     // Propojení s QTableView z UI souboru
     ui->tabulkaKnih->setModel(mModelKnih);
-    ui->tabulkaKnih->hideColumn(0); // Skrytí ID pro uživatele
+    //ui->tabulkaKnih->hideColumn(0); // Skrytí ID pro uživatele
 }
 
 void MainWindow::onPridejKnihu() {
@@ -50,6 +51,7 @@ void MainWindow::onPridejKnihu() {
     if (mModelKnih->insertRow(radek)) {
         mModelKnih->setData(mModelKnih->index(radek, 1), "Nový titul");
         mModelKnih->setData(mModelKnih->index(radek, 2), "Autor");
+        mModelKnih->setData(mModelKnih->index(radek, 3), 2005);
         mModelKnih->submitAll();
     }
 }
@@ -66,7 +68,8 @@ void MainWindow::onSmazVybranouKnihu() {
 
 void MainWindow::onFiltrujPodleNazvu(const QString &text) {
     // Filtrace pomocí SQL podmínky LIKE
-    mModelKnih->setFilter(QString("nazev LIKE '%%1%'").arg(text));
+   // mModelKnih->setFilter(QString("nazev LIKE '%%1%'").arg(text));
+    mModelKnih->setFilter(QString("nazev LIKE '%" + text + "%'"));
     mModelKnih->select();
 }
 
