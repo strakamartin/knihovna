@@ -6,64 +6,117 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>450</height>
+    <width>837</width>
+    <height>661</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Knižní evidence</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    
-    <item>
-     <widget class="QLabel" name="labelHledani">
-      <property name="text">
-       <string>Vyhledat knihu (podle názvu):</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="listaHledani">
-      <property name="placeholderText">
-       <string>Zadejte název...</string>
-      </property>
-     </widget>
-    </item>
-
-    <item>
-     <widget class="QTableView" name="tabulkaKnih">
-      <property name="selectionMode">
-       <enum>QAbstractItemView::SingleSelection</enum>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-     </widget>
-    </item>
-
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayoutObsah">
       <item>
-       <widget class="QPushButton" name="tlacitkoPridat">
-        <property name="text">
-         <string>Přidat knihu</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="tlacitkoSmazat">
-        <property name="text">
-         <string>Smazat vybranou</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayoutPravy">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayoutNastroje">
+          <item>
+           <widget class="QLabel" name="labelVyberTabulky">
+            <property name="text">
+             <string>Vyber tabulku:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboTabulky"/>
+          </item>
+          <item>
+           <spacer name="spacerNastroje">
+            <property name="orientation">
+             <enum>Qt::Orientation::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="buttonPridat">
+            <property name="text">
+             <string>Přidat řádek</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="buttonSmazat">
+            <property name="text">
+             <string>Smazat řádek</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayoutFiltr">
+          <item>
+           <widget class="QLabel" name="labelFiltr">
+            <property name="text">
+             <string>Filtr:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="textEditFiltr">
+            <property name="placeholderText">
+             <string>Zadejte hledaný text...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="labelSloupec">
+            <property name="text">
+             <string>podle:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboSloupce"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QTableView" name="tabulkaHlavni">
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
-
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QListWidget" name="listAutoru"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>
