@@ -33,7 +33,8 @@ void MainWindow::inicializujDb() {
 
     if (!mMojeDatabaze.open()) {
         QMessageBox::critical(this, "Chyba databáze",
-                              "Nepodařilo se otevřít databázi: " + mMojeDatabaze.lastError().text());
+                             "Nepodařilo se otevřít databázi: " +
+                                  mMojeDatabaze.lastError().text());
         return;
     }
 
@@ -48,7 +49,7 @@ void MainWindow::inicializujDb() {
 
     // Create books table with FK to autor
     dotaz.exec("CREATE TABLE IF NOT EXISTS knihy ("
-               "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+               "id INTEGER UNIQUE PRIMARY KEY AUTOINCREMENT, "
                "nazev TEXT, "
                "rok_vydani INTEGER, "
                "autor_id INTEGER REFERENCES autor(id))");
