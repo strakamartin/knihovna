@@ -6,42 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>960</width>
-    <height>680</height>
+    <width>837</width>
+    <height>661</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Knižní evidence</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayoutMain">
-
-    <!-- Hlavní obsah: levý seznam autorů + pravý panel dat -->
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayoutObsah">
-
-      <!-- Levý panel: seznam autorů (bez tlačítek) -->
-      <item>
-       <widget class="QGroupBox" name="groupBoxAutori">
-        <property name="title">
-         <string>Autoři</string>
-        </property>
-        <property name="maximumWidth">
-         <number>220</number>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayoutAutori">
-         <item>
-          <widget class="QListWidget" name="listAutoru"/>
-         </item>
-        </layout>
-       </widget>
-      </item>
-
-      <!-- Pravý panel: nástrojový řádek + filtr + tabulka -->
       <item>
        <layout class="QVBoxLayout" name="verticalLayoutPravy">
-
-        <!-- Řádek 1: výběr tabulky + tlačítka správy řádků -->
         <item>
          <layout class="QHBoxLayout" name="horizontalLayoutNastroje">
           <item>
@@ -52,16 +29,12 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboTabulky">
-            <property name="minimumWidth">
-             <number>140</number>
-            </property>
-           </widget>
+           <widget class="QComboBox" name="comboTabulky"/>
           </item>
           <item>
            <spacer name="spacerNastroje">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -72,14 +45,14 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="tlacitkoPridat">
+           <widget class="QPushButton" name="buttonPridat">
             <property name="text">
              <string>Přidat řádek</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="tlacitkoSmazat">
+           <widget class="QPushButton" name="buttonSmazat">
             <property name="text">
              <string>Smazat řádek</string>
             </property>
@@ -87,8 +60,6 @@
           </item>
          </layout>
         </item>
-
-        <!-- Řádek 2: filtr -->
         <item>
          <layout class="QHBoxLayout" name="horizontalLayoutFiltr">
           <item>
@@ -99,7 +70,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="listaHledani">
+           <widget class="QLineEdit" name="textEditFiltr">
             <property name="placeholderText">
              <string>Zadejte hledaný text...</string>
             </property>
@@ -113,36 +84,39 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboSloupce">
-            <property name="minimumWidth">
-             <number>160</number>
-            </property>
-           </widget>
+           <widget class="QComboBox" name="comboSloupce"/>
           </item>
          </layout>
         </item>
-
-        <!-- Hlavní tabulka -->
         <item>
          <widget class="QTableView" name="tabulkaHlavni">
           <property name="selectionMode">
-           <enum>QAbstractItemView::SingleSelection</enum>
+           <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
           </property>
          </widget>
         </item>
-
        </layout>
       </item>
-
      </layout>
     </item>
-
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockWidget">
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QListWidget" name="listAutoru"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -13,9 +13,9 @@ MainWindow::MainWindow(QWidget *rodic)
     ui->setupUi(this);
     inicializujDb();
 
-    connect(ui->tlacitkoPridat, &QPushButton::clicked, this, &MainWindow::onPridejRadek);
-    connect(ui->tlacitkoSmazat, &QPushButton::clicked, this, &MainWindow::onSmazVybranyRadek);
-    connect(ui->listaHledani,   &QLineEdit::textChanged, this, &MainWindow::onFiltruj);
+    connect(ui->buttonPridat, &QPushButton::clicked, this, &MainWindow::onPridejRadek);
+    connect(ui->buttonSmazat, &QPushButton::clicked, this, &MainWindow::onSmazVybranyRadek);
+    connect(ui->textEditFiltr,   &QLineEdit::textChanged, this, &MainWindow::onFiltruj);
     connect(ui->comboSloupce,   QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onFiltruj);
     connect(ui->comboTabulky,   QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -54,20 +54,22 @@ void MainWindow::inicializujDb() {
                "autor_id INTEGER REFERENCES autor(id))");
 
     // Migration: add autor_id if an older database is opened
-    QSqlQuery checkSloupce;
-    checkSloupce.exec("PRAGMA table_info(knihy)");
-    bool maAutorId = false;
-    while (checkSloupce.next()) {
-        if (checkSloupce.value(1).toString() == "autor_id") {
-            maAutorId = true;
-            break;
-        }
-    }
-    if (!maAutorId) {
-        dotaz.exec("ALTER TABLE knihy ADD COLUMN autor_id INTEGER REFERENCES autor(id)");
-    }
+    // QSqlQuery checkSloupce;
+    //najde vsetky sltpce dane tabulky, vrati id, name a datovy typ daneho stlpca
+    // checkSloupce.exec("PRAGMA table_info(knihy)");
+    // bool maAutorId = false;
+    // while (checkSloupce.next()) {
+    //     if (checkSloupce.value(1).toString() == "autor_id") {
+    //         maAutorId = true;
+    //         break;
+    //     }
+    // }
+    // if (!maAutorId) {
+    //     dotaz.exec("ALTER TABLE knihy ADD COLUMN autor_id INTEGER REFERENCES autor(id)");
+    // }
 
     // Populate table selector combo box from the actual database tables
+    //najde vsetky tabulky v databazy a vlozi jich do comboboxu
     QSqlQuery tabulky("SELECT name FROM sqlite_master "
                       "WHERE type='table' AND name NOT LIKE 'sqlite_%' "
                       "ORDER BY name");
@@ -175,7 +177,7 @@ void MainWindow::aktualizujFiltr() {
     // LIKE operator has no other special metacharacters that need escaping
     // for correctness (% and _ affect pattern matching but are intentional
     // wildcards here).
-    const QString hledani = ui->listaHledani->text();
+    const QString hledani = ui->textEditFiltr->text();
     if (!hledani.isEmpty()) {
         const int idx = ui->comboSloupce->currentIndex();
         if (idx >= 0 && idx < mSloupceFiltr.size()) {
@@ -200,7 +202,7 @@ void MainWindow::aktualizujFiltr() {
     // QSqlTableModel::select() emits modelReset which resets the header view's
     // section visibility back to the default (all visible). Re-hide the ID
     // column so it stays hidden after every data refresh.
-    ui->tabulkaHlavni->hideColumn(0);
+   // ui->tabulkaHlavni->hideColumn(0);
 }
 
 // ---------------------------------------------------------------------------
@@ -228,7 +230,7 @@ void MainWindow::onVyberTabulky(int /*index*/) {
 
     // Reset filters and rebuild column combo
     mVybranyAutorId = -1;
-    ui->listaHledani->clear();
+    ui->textEditFiltr->clear();
     ui->listAutoru->clearSelection();
     nactiSloupceProTabulku(tabulka);
 
